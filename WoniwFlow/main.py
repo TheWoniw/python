@@ -4,8 +4,8 @@ from json_functions import load_json
 from json_functions import save_json
 from avaiable_commands_list import availaible_commands_list
 # json data
-#?json_path = "/home/woniw/Desktop/python/ip_list.json"
-data = load_json("ip_list.json")
+json_path = "/home/woniw/Desktop/python/ip_list.json"
+data = load_json(json_path)
 
 
 def human_func():
@@ -13,11 +13,11 @@ def human_func():
     return human
 
 def suspicous_func():
-    suspicous = random.randint(3,6)
+    suspicous = random.randint(2,8)
     return suspicous
 
 def anomoly_func():
-    anomoly = random.randint(6,16)
+    anomoly = random.randint(10,150)
     return anomoly
 
 
@@ -54,7 +54,6 @@ def generate_ip_list(ip_list):
         if random_number <= 0:
             human = human_func()
             ip_list.append({count: {"ip": generate_ip(), "attempts": human}})
-
         elif random_number > 0 and random_number < 0.3:
             anomoly = anomoly_func()
             ip_list.append({count: {"ip": generate_ip(), "attempts": anomoly}})
@@ -62,14 +61,14 @@ def generate_ip_list(ip_list):
             suspicous = suspicous_func()
             ip_list.append({count: {"ip": generate_ip(), "attempts": suspicous}})
 
-    save_json(data, "ip_list.json")  
+    save_json(data, json_path)  
     print("|--- IP List Has Been Generated ---|")
     print('')
     time.sleep(3)
 
 def clear_generated_ip_list(ip_list):
     ip_list.clear()
-    save_json(data, "ip_list.json")  
+    save_json(data, json_path)  
     print("|--- IP List Has Been Cleared ---|")
     print('')
     time.sleep(3)
@@ -78,7 +77,6 @@ available_commands = {
     "1": generate_ip_list,
     "2": clear_generated_ip_list
 }
-
 
 def main():
 
